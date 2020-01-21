@@ -1,5 +1,80 @@
 #include "paqueteria.h"
 
+void Paqueteria::menu()
+{
+    int opc;
+    do
+    {
+        CLEAR;
+        cout << " Instrucciones: Ingrese el numero de la opción" << endl
+             << " a ejecutar" << endl << endl
+             << " " << INSERTAR << ") Insertar paquete"    << endl
+             << " " << ELIMINAR << ") Eliminar paquete"    << endl
+             << " " << MOSTRAR  << ") Mostrar paquetes"    << endl
+             << " " << GUARDAR  << ") Guardar (archivo)"   << endl
+             << " " << RECUPERAR<< ") Recuperar (archivo)" << endl
+             << " " << SALIR    << ") Salir"               << endl
+             << " Opción: ";
+        cin >> opc;
+        cin.ignore();
+        CLEAR;
+        switch(opc)
+        {
+            case INSERTAR:
+            {
+                string id;
+                string origen;
+                string destino;
+                float peso;
+                Paquete tmp;
+                cout << " Ingrese los siguientes datos del paquete:" << endl
+                     << endl
+                     << " ID: ";
+                getline(cin, id);
+                cout << endl << " Origen: ";
+                getline(cin, origen);
+                cout << endl << " Destino: ";
+                getline(cin, destino);
+                cout << endl << " Peso: ";
+                cin >> peso;
+                tmp.setId(id);
+                tmp.setPeso(peso);
+                tmp.setOrigen(origen);
+                tmp.setDestino(destino);
+                insertarInicio(tmp);
+                cout << endl << " Paquete añadido" << endl;
+                cin.ignore();
+            }
+            break;
+
+            case ELIMINAR:
+                eliminarInicio();
+            break;
+
+            case MOSTRAR:
+                mostrar();
+            break;
+
+            case GUARDAR:
+                guardar();
+                cout << " Paquete guardado" << endl;
+            break;
+
+            case RECUPERAR:
+                recuperar();
+                cout << " Paquete recuperado" << endl;
+            break;
+
+            default:
+            break;
+        }
+        cout << endl << " Presione ENTER para continuar" << endl;
+        cin.get();
+    } while(opc != SALIR);
+
+    CLEAR;
+}
+
 void Paqueteria::insertarInicio(const Paquete& paquete)
 {
     m_paquetes.push_back(paquete);
@@ -7,7 +82,13 @@ void Paqueteria::insertarInicio(const Paquete& paquete)
 
 void Paqueteria::eliminarInicio()
 {
-    m_paquetes.pop_back();
+    if (!m_paquetes.size())
+        std::cout << " No hay paquetes para borrar" << std::endl;
+    else
+    {
+        m_paquetes.pop_back();
+        cout << " Paquete eliminado" << endl;
+    }
 }
 
 void Paqueteria::mostrar()

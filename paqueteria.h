@@ -19,6 +19,7 @@ public:
     Paqueteria(){}
     virtual ~Paqueteria(){}
 
+    void menu();
     void insertarInicio(const Paquete& paquete);
     void eliminarInicio();
     void mostrar();
@@ -26,7 +27,17 @@ public:
     void recuperar();
 
 private:
-    LSL<Paquete> m_paquetes;
+   LSL<Paquete> m_paquetes;
+
+   enum
+   {
+        INSERTAR = 1,
+        ELIMINAR,
+        MOSTRAR,
+        GUARDAR,
+        RECUPERAR,
+        SALIR
+   };
 };
 
 #endif // PAQUETERIA_H

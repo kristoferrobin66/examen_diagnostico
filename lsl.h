@@ -1,6 +1,8 @@
 #ifndef LSL_H
 #define LSL_H
 
+// CLASE DE LISTA SIMPLEMENTE LIGADA
+
 #include<iostream>
 #include<stdexcept>
 using namespace std;
@@ -109,7 +111,7 @@ template<typename T>
 const T& LSL<T>::front() const
 {
     if (empty())
-        throw range_error("Trying to front() on an empty list");
+        throw range_error("Lista vacía");
     return listFront->dato;
 }
 
@@ -117,7 +119,7 @@ template<typename T>
 const T& LSL<T>::back() const
 {
     if (empty())
-        throw range_error("Trying to back() on an empty list");
+        throw range_error("Lista vacía");
     return listBack->dato;
 }
 
@@ -125,7 +127,7 @@ template<typename T>
 void LSL<T>::pop_front()
 {
     if (empty())
-        throw range_error("Trying to pop_front() on an empty list");
+        throw range_error("Lista vacía");
     
     NodoLSL* tmp = listFront;
     listFront = listFront->siguiente;
@@ -138,7 +140,7 @@ template<typename T>
 void LSL<T>::pop_back()
 {
     if (empty())
-        throw range_error("Trying to pop_back() on an empty list");
+        throw range_error("Lista vacía");
     NodoLSL* tmp = listFront;
     while (tmp->siguiente != nullptr && tmp->siguiente != listBack)
         tmp = tmp->siguiente;
@@ -159,7 +161,7 @@ template<typename T>
 void LSL<T>::insert(size_t position, const T &element)
 {
     if (position > listSize)
-        throw range_error("insert() in non valid position");
+        throw range_error("Posición no válida");
     if (!position)
         push_front(element);
     else if (position == listSize)
@@ -179,9 +181,9 @@ template<typename T>
 void LSL<T>::erase(size_t position)
 {
     if (empty())
-        throw range_error("erase() on empty list");
+        throw range_error("Lista vacía");
     if (position >= listSize)
-        throw range_error("erase on non valid position");
+        throw range_error("Posición no válida");
     else if (!position)
         pop_front();
     else if(position == listSize - 1)
@@ -213,7 +215,7 @@ template<typename T>
 void LSL<T>::remove(const T& value)
 {
     if (empty())
-        throw range_error("remove() on empty list");
+        throw range_error("Lista vacía");
     NodoLSL* temp = listFront;
     size_t i = 0;
     T dato;
@@ -234,9 +236,9 @@ template<typename T>
 T& LSL<T>::operator [](size_t index)
 {
     if (empty())
-        throw range_error("[] in empty list");
+        throw range_error("Lista vacía");
     if (index >= listSize)
-        throw range_error("[] in non valid position");
+        throw range_error("Posición no válida");
     NodoLSL* temp = listFront;
     for(size_t i(0); i < index; ++i)
         temp = temp->siguiente;
